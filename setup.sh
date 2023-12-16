@@ -2,8 +2,8 @@
 
 script_path="$(dirname -- "${BASH_SOURCE[0]}")"
 cd ${script_path}
-mkdir -p "../etc-pihole"
-mkdir -p "../etc-dnsmasq.d"
+mkdir -p "../docker_volumes/pihole/etc-pihole"
+mkdir -p "../docker_volumes/pihole/etc-dnsmasq.d"
 
 sudo docker compose up --detach
 
