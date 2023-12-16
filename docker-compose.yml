@@ -19,6 +19,8 @@ services:
     volumes:
       - '../docker_volumes/pihole/etc-pihole:/etc/pihole'
       - '../docker_volumes/pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
+      # needed because docker keeps pointing resolv to 127.0.0.11 for some reason
+      - "./pihole_resolv.conf:/etc/resolv.conf"
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:
       - NET_ADMIN
