@@ -1,3 +1,6 @@
 # pi-hole related
 etc-pihole/**
 etc-dnsmasq.d/**
+
+# intellij
+.idea
