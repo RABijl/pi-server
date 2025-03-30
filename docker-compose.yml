@@ -1,8 +1,6 @@
-version: "3"
-
-# https://github.com/pi-hole/docker-pi-hole/blob/master/README.md
 
 services:
+  # https://github.com/pi-hole/docker-pi-hole/blob/master/README.md
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
@@ -17,11 +15,11 @@ services:
       # WEBPASSWORD: 'set a secure password here or it will be random'
     # Volumes store your data between container upgrades
     volumes:
-      - '../docker_volumes/pihole/etc-pihole:/etc/pihole'
-      - '../docker_volumes/pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
+      - "${DATA_DIR}/pihole/etc-pihole:/etc/pihole"
+      - "${DATA_DIR}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
       # needed because docker keeps pointing resolv to 127.0.0.11 for some reason
-      - "./pihole_resolv.conf:/etc/resolv.conf"
+#      - "./pihole_resolv.conf:/etc/resolv.conf"
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:
       - NET_ADMIN
-    restart: unless-stopped # Recommended but not required (DHCP needs NET_ADMIN)  
+    restart: unless-stopped # Recommended but not required (DHCP needs NET_ADMIN)
