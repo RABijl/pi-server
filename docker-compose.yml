@@ -23,3 +23,21 @@ services:
     cap_add:
       - NET_ADMIN
     restart: unless-stopped # Recommended but not required (DHCP needs NET_ADMIN)
+
+  tsdproxy:
+    image: almeidapaulopt/tsdproxy:latest
+    container_name: tsdproxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DATA_DIR}/tsdproxy/data:/data
+    environment:
+      - TSDPROXY_AUTHKEY=${TSDPROXY_AUTHKEY}
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    restart: unless-stopped
+  nginx:
+    image: nginx
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "nginx"
+    ports:
+      - "8080:80"
