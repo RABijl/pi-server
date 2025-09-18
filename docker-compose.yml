@@ -24,34 +24,36 @@ services:
       - NET_ADMIN
     restart: unless-stopped # Recommended but not required (DHCP needs NET_ADMIN)
 
-  tsdproxy:
-    image: almeidapaulopt/tsdproxy:latest
-    container_name: tsdproxy
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${DATA_DIR}/tsdproxy/data:/data
-    environment:
-      - TSDPROXY_AUTHKEY=${TSDPROXY_AUTHKEY}
-      - DOCKER_HOST=unix:///var/run/docker.sock
-    restart: unless-stopped
-  nginx:
-    image: nginx
-    labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: "nginx"
-    ports:
-      - "8080:80"
+  # tsdproxy:
+    # image: almeidapaulopt/tsdproxy:latest
+    # container_name: tsdproxy
+    # volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock
+      # - ${DATA_DIR}/tsdproxy/data:/data
+    # environment:
+      # - TSDPROXY_AUTHKEY=${TSDPROXY_AUTHKEY}
+      # - DOCKER_HOST=unix:///var/run/docker.sock
+    # restart: unless-stopped
+  # nginx:
+    # image: nginx
+    # labels:
+      # tsdproxy.enable: "true"
+      # tsdproxy.name: "nginx"
+    # ports:
+      # - "8080:80"
 
-  nginx-tailscale:
+  tailscale-nginx:
       image: tailscale/tailscale:latest
-      hostname: nginx-ts
+      # the name that the node shows up in tailscale and the prefix address.
+      hostname: nginx
+      container_name: tailscale-nginx
       environment:
         - TS_AUTHKEY=${NGINX_TS_AUTHKEY}
         - TS_EXTRA_ARGS=--advertise-tags=tag:container
         - TS_STATE_DIR=/var/lib/tailscale
         - TS_USERSPACE=false
       volumes:
-        - ${DATA_DIR}/nginx-tailscale/state:/var/lib/tailscale
+        - ${DATA_DIR}/tailscale-nginx/state:/var/lib/tailscale
       devices:
         - /dev/net/tun:/dev/net/tun
       cap_add:
@@ -60,8 +62,9 @@ services:
       # this is the port nginx-ts is on
         - "8081:80"
       restart: unless-stopped
-  nginx-ts:
+  nginx:
     image: nginx
+    container_name: nginx
     depends_on:
-      - nginx-tailscale
-    network_mode: service:nginx-tailscale
+      - tailscale-nginx
+    network_mode: service:tailscale-nginx
