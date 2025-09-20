@@ -1,0 +1,29 @@
+
+services:
+  tailscale-nginx:
+      image: tailscale/tailscale:latest
+      # the name that the node shows up in tailscale and the prefix address.
+      hostname: nginx
+      container_name: tailscale-nginx
+      environment:
+        - TS_AUTHKEY=${NGINX_TS_AUTHKEY}
+        - TS_EXTRA_ARGS=--advertise-tags=tag:container
+        - TS_STATE_DIR=/var/lib/tailscale
+        - TS_USERSPACE=false
+        - TZ="${TZ}"
+      volumes:
+        - ${DATA_DIR}/tailscale-nginx/state:/var/lib/tailscale
+      devices:
+        - /dev/net/tun:/dev/net/tun
+      cap_add:
+        - NET_ADMIN
+      ports:
+      # this is the port nginx-ts is on
+        - "8081:80"
+      restart: unless-stopped
+  nginx:
+    image: nginx
+    container_name: nginx
+    depends_on:
+      - tailscale-nginx
+    network_mode: service:tailscale-nginx
