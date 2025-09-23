@@ -43,3 +43,15 @@ services:
     # uncomment this to get access to the docker socket on localhost
     # ports:
       # - "127.0.0.1:2375:2375"
+  
+  # example usage
+  # nginx:
+  #   image: nginx
+  #   container_name: nginx
+  #   ports:
+  #     - "8081:80"
+  #   env_file:
+  #     - ../shared.env
+  #   labels:
+  #     tsdproxy.enable: "true"
+  #     tsdproxy.name: "tsdproxy-nginx"
