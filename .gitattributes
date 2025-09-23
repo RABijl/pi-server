@@ -1,2 +1,3 @@
 
 .env filter=git-crypt diff=git-crypt
+tsdproxy/tsdproxy.env filter=git-crypt diff=git-crypt

@@ -11,6 +11,10 @@ services:
       - ${DATA_DIR}/tsdproxy/config:/config
     env_file:
       - ../shared.env
+      - tsdproxy.env
+    environment:
+      - DOCKER_HOST=tcp://socketproxy:2375
+      - TSDPROXY_HOSTNAME=socketproxy
     restart: unless-stopped
     ports:
       - "8080:8080"
