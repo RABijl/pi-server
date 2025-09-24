@@ -1,2 +1,7 @@
 include:
-  - nginx/docker-compose.yml
+  # - nginx/docker-compose.yml
+  - tsdproxy/docker-compose.yml
+  - path: freshrss/docker-compose.yml
+    # https://www.reddit.com/r/docker/comments/17ekhqy/comment/lud338a/
+    env_file:
+      ./freshrss/freshrss.env
