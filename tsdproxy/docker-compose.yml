@@ -1,0 +1,57 @@
+networks:
+  socketproxy-network:
+      driver: bridge
+
+services:
+  tsdproxy:
+    image: almeidapaulopt/tsdproxy:1
+    container_name: tsdproxy
+    volumes:
+      - ${DATA_DIR}/tsdproxy/data:/data
+      - ${DATA_DIR}/tsdproxy/config:/config
+    env_file:
+      - ../shared.env
+      - tsdproxy.env
+    environment:
+      - DOCKER_HOST=tcp://socketproxy:2375
+      - TSDPROXY_HOSTNAME=socketproxy
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - socketproxy-network
+    depends_on:
+      - socketproxy
+
+  socketproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    container_name: socketproxy
+    env_file:
+      - ../shared.env
+    environment:
+      # https://github.com/almeidapaulopt/tsdproxy/discussions/130
+      - CONTAINERS=1
+      - IMAGES=1
+      - NETWORKS=1
+      - EVENTS=1
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    networks:
+      - socketproxy-network
+    # uncomment this to get access to the docker socket on localhost
+    # ports:
+      # - "127.0.0.1:2375:2375"
+  
+  # example usage
+  # nginx:
+  #   image: nginx
+  #   container_name: nginx
+  #   ports:
+  #     - "8081:80"
+  #   env_file:
+  #     - ../shared.env
+  #   labels:
+  #     tsdproxy.enable: "true"
+  #     tsdproxy.name: "tsdproxy-nginx"
