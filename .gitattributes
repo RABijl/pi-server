@@ -2,3 +2,4 @@
 .env filter=git-crypt diff=git-crypt
 tsdproxy/tsdproxy.env filter=git-crypt diff=git-crypt
 freshrss/freshrss.env filter=git-crypt diff=git-crypt
+linkwarden/linkwarden.env filter=git-crypt diff=git-crypt

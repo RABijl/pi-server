@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres-linkwarden
+    env_file:
+      - ../shared.env 
+      - linkwarden.env
+    restart: always
+    volumes:
+      - ${DATA_DIR}/linkwarden/pgdata:/var/lib/postgresql/data
+  linkwarden:
+    env_file:
+      - ../shared.env 
+      - linkwarden.env
+    environment:
+      - NEXTAUTH_URL=http://localhost:3000/api/v1/auth
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres-linkwarden:5432/postgres
+      - MEILI_HOST:'meilisearch-linkwarden:7700'
+      - NEXT_PUBLIC_DISABLE_REGISTRATION=true
+    restart: always
+    # build: . # uncomment to build from source
+    image: ghcr.io/linkwarden/linkwarden:latest # comment to build from source
+    container_name: linkwarden-app
+    ports:
+      - 3000:3000
+    volumes:
+      - ${DATA_DIR}/linkwarden/data:/data/data
+    depends_on:
+      - postgres
+      - meilisearch
+  meilisearch:
+    image: getmeili/meilisearch:v1.12.8
+    container_name: meilisearch-linkwarden
+    restart: always
+    env_file:
+      - ../shared.env 
+      - linkwarden.env
+    volumes:
+      - ${DATA_DIR}/linkwarden/meili_data:/meili_data
