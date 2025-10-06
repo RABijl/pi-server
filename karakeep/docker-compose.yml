@@ -21,6 +21,11 @@ services:
       - CRAWLER_ENABLE_ADBLOCKER=true
       - KARAKEEP_VERSION=release
       # - OPENAI_API_KEY=123
+      # - OLLAMA_BASE_URL=http://ollama:11434
+      # Linkwarden recommends this one
+      # - INFERENCE_TEXT_MODEL=phi3:mini-4k
+      # there seems to be a version of phi3 that provides better structured text
+      # - INFERENCE_OUTPUT_SCHEMA=plain
     ports:
       - 3000:3000
   karakeep-chrome:
