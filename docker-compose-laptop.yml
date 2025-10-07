@@ -1,0 +1,5 @@
+include:
+  # - tsdproxy/docker-compose.yml
+  - path: karakeep/docker-compose.yml
+    env_file: karakeep/.env
+  # - ollama/docker-compose.yml
