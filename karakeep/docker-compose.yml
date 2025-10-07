@@ -20,12 +20,9 @@ services:
       - CRAWLER_FULL_PAGE_ARCHIVE=true
       - CRAWLER_ENABLE_ADBLOCKER=true
       - KARAKEEP_VERSION=release
-      # - OPENAI_API_KEY=123
-      # - OLLAMA_BASE_URL=http://ollama:11434
-      # Linkwarden recommends this one
-      # - INFERENCE_TEXT_MODEL=phi3:mini-4k
-      # there seems to be a version of phi3 that provides better structured text
-      # - INFERENCE_OUTPUT_SCHEMA=plain
+      - OPENAI_BASE_URL=https://generativelanguage.googleapis.com/v1beta  
+      - OPENAI_API_KEY=${GEMINI_API_KEY}
+      - INFERENCE_TEXT_MODEL=gemini-2.5-flash
     ports:
       - 3000:3000
   karakeep-chrome:
