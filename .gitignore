@@ -4,3 +4,5 @@ etc-dnsmasq.d/**
 
 # intellij
 .idea
+
+/docker-compose.yml

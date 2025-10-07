@@ -1,0 +1,11 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    volumes:
+      - ${DATA_DIR}/ollama/data:/root/.ollama
+    env_file:
+      - ../shared.env
+    ports:
+      - 11434:11434
