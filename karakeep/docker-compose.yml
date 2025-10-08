@@ -8,12 +8,11 @@ services:
     env_file:
       - ../shared.env
     environment:
-      - MEILI_ADDR=http://meilisearch-karakeep:7700
-      - BROWSER_WEB_URL=http://chrome-karakeep:9222
+      - MEILI_ADDR=http://karakeep-meilisearch:7700
+      - BROWSER_WEB_URL=http://karakeep-chrome:9222
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
       - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
-      # TODO: change this 
-      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
       - DATA_DIR=/data
       - CRAWLER_STORE_SCREENSHOT=true
       - CRAWLER_FULL_PAGE_SCREENSHOT=true
@@ -25,9 +24,16 @@ services:
       - INFERENCE_TEXT_MODEL=gemini-2.5-flash
     ports:
       - 3000:3000
+    depends_on:
+      - karakeep-chrome
+      - karakeep-meilisearch
+      - tsdproxy
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "karakeep"
   karakeep-chrome:
     image: gcr.io/zenika-hub/alpine-chrome:latest
-    container_name: chrome-karakeep
+    container_name: karakeep-chrome
     restart: unless-stopped
     command:
       - --no-sandbox
@@ -40,7 +46,7 @@ services:
       - ../shared.env
   karakeep-meilisearch:
     image: getmeili/meilisearch:v1.13.3
-    container_name: meilisearch-karakeep
+    container_name: karakeep-meilisearch
     restart: unless-stopped
     env_file:
       - ../shared.env
