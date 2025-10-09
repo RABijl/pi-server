@@ -16,7 +16,6 @@ services:
       - DATA_DIR=/data
       - CRAWLER_STORE_SCREENSHOT=true
       - CRAWLER_FULL_PAGE_SCREENSHOT=true
-      - CRAWLER_FULL_PAGE_ARCHIVE=true
       - CRAWLER_ENABLE_ADBLOCKER=true
       - KARAKEEP_VERSION=release
       - OPENAI_BASE_URL=https://generativelanguage.googleapis.com/v1beta  

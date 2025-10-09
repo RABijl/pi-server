@@ -10,4 +10,5 @@ config files for the raspberry pi running at home
 -[ ] setup backups
 -[ ] setup irc bouncer
 -[ ] setup webdav server
+-[x] setup linkmanager
 
