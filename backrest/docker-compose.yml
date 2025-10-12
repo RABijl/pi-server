@@ -1,0 +1,29 @@
+services:
+  backrest:
+    image: garethgeorge/backrest:latest
+    container_name: backrest
+    hostname: backrest
+    user: "${UID_GID:-1000:1000}"
+    volumes:
+      # this is fine since anything in the backrest dir is excluded from
+      # being backed up.
+      - ${DATA_DIR}/backrest/data:/data
+      # tracked in git
+      - "./config-${DOCKER_HOST_NAME}:/config"
+      - ${DATA_DIR}/backrest/cache:/cache
+      - ${DATA_DIR}/backrest/tmp:/tmp
+      # data to back up
+      - ${DATA_DIR}:/containerdata
+      # destination data
+      - /mnt/backrest:/destination
+    env_file:
+      - ../shared.env
+    environment:
+      - BACKREST_DATA=/data
+      - BACKREST_CONFIG=/config/config.json
+      - XDG_CACHE_HOME=/cache
+      - TMPDIR=/tmp
+    ports:
+      # todo: this can be disabled once everything is configured 
+      - "9898:9898"
+    restart: unless-stopped

@@ -6,3 +6,6 @@ etc-dnsmasq.d/**
 .idea
 
 /docker-compose.yml
+
+# backrest
+**/config.json.bak*

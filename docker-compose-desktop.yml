@@ -1,0 +1,3 @@
+include:
+  - path: backrest/docker-compose.yml
+    env_file: desktop.env
