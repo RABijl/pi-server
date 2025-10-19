@@ -1,5 +1,9 @@
 include:
   - path: tsdproxy/docker-compose.yml
-    env_file: tsdproxy/nuc.env
+    env_file: 
+      - tsdproxy/nuc.env
+      - nuc.env
   - path: karakeep/docker-compose.yml
-    env_file: karakeep/.env
+    env_file: 
+      - karakeep/.env
+      - nuc.env
