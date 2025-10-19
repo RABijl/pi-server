@@ -23,3 +23,4 @@ config files for the raspberry pi running at home
 - [ ] set userid for containers
 - [ ] setup git server
 - [ ] setup translate argos server
+- [ ] setup matrix server
