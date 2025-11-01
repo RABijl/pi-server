@@ -1,3 +1,6 @@
+networks:
+  backrest-network:
+      driver: bridge
 services:
   backrest:
     image: garethgeorge/backrest:latest
@@ -16,6 +19,7 @@ services:
       - ${DATA_DIR}:/containerdata
       # destination data
       - /mnt/backrest:/destination
+      - ./manage_containers.sh:/manage_containers.sh
     env_file:
       - ../shared.env
     environment:
@@ -23,7 +27,33 @@ services:
       - BACKREST_CONFIG=/config/config.json
       - XDG_CACHE_HOME=/cache
       - TMPDIR=/tmp
+      - BACKUP_LIST=nginx
+      - DOCKER_HOST=tcp://backrest-socketproxy:2375
+    networks:
+      - backrest-network
     ports:
       # todo: this can be disabled once everything is configured 
       - "9898:9898"
     restart: unless-stopped
+    depends_on:
+      - backrest-socketproxy
+  
+  backrest-socketproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    container_name: backrest-socketproxy
+    env_file:
+      - ../shared.env
+    environment:
+      - CONTAINERS=1
+      - POST=1
+      - ALLOW_START=1
+      - ALLOW_STOP=1
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    networks:
+      - backrest-network
+    # uncomment this to get access to the docker socket on localhost
+    # ports:
+    #   - "127.0.0.1:2375:2375"

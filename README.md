@@ -12,7 +12,9 @@ config files for the raspberry pi running at home
     - [x] setup periodic runs
     - [x] setup notifications
     - [ ] backup offsite
-    - [ ] turn off containers before running
+      - [ ] backup pi
+      - [ ] backup nuc
+    - [x] turn off containers before running
 - [ ] setup irc bouncer
 - [ ] setup webdav server
 - [x] setup linkmanager
