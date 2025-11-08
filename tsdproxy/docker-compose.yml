@@ -6,6 +6,7 @@ services:
   tsdproxy:
     image: almeidapaulopt/tsdproxy:1
     container_name: tsdproxy
+    user: "${UID_GID:-1000:1000}"
     volumes:
       - ${DATA_DIR}/tsdproxy/data:/data
       - ${DATA_DIR}/tsdproxy/config:/config
