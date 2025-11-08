@@ -7,3 +7,7 @@ include:
     env_file: 
       - karakeep/.env
       - nuc.env
+  - path: backrest/docker-compose.yml
+    env_file: 
+      - nuc.env
+      - backrest/nuc.env

@@ -7,3 +7,4 @@ freshrss/freshrss.env filter=git-crypt diff=git-crypt
 linkwarden/linkwarden.env filter=git-crypt diff=git-crypt
 karakeep/.env filter=git-crypt diff=git-crypt
 backrest/config-desktop/config.json filter=git-crypt diff=git-crypt
+backrest/config-nuc/config.json filter=git-crypt diff=git-crypt

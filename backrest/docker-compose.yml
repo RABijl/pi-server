@@ -27,7 +27,7 @@ services:
       - BACKREST_CONFIG=/config/config.json
       - XDG_CACHE_HOME=/cache
       - TMPDIR=/tmp
-      - BACKUP_LIST=nginx
+      - BACKUP_LIST=${BACKUP_LIST}
       - DOCKER_HOST=tcp://backrest-socketproxy:2375
     networks:
       - backrest-network
