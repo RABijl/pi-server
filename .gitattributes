@@ -8,3 +8,5 @@ linkwarden/linkwarden.env filter=git-crypt diff=git-crypt
 karakeep/.env filter=git-crypt diff=git-crypt
 backrest/config-desktop/config.json filter=git-crypt diff=git-crypt
 backrest/config-nuc/config.json filter=git-crypt diff=git-crypt
+soft-serve/config-laptop/config.yaml filter=git-crypt diff=git-crypt
+soft-serve/.env filter=git-crypt diff=git-crypt

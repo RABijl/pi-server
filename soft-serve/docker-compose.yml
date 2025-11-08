@@ -1,0 +1,20 @@
+services:
+  soft-serve:
+    image: charmcli/soft-serve:latest
+    container_name: soft-serve
+    user: "${UID_GID:-1000:1000}"
+    volumes:
+      - ${DATA_DIR}/soft-serve:/soft-serve
+      - "./config-${DOCKER_HOST_NAME}:/config"
+    ports:
+      - 23231:23231
+      - 23232:23232
+      - 23233:23233
+      - 9418:9418
+    environment:
+      - SOFT_SERVE_INITIAL_ADMIN_KEYS=${SOFT_SERVE_INITIAL_ADMIN_KEYS}
+      - SOFT_SERVE_CONFIG_LOCATION=/config/config.yaml
+    restart: unless-stopped
+    labels:
+      tsdproxy.enable: "false"
+      tsdproxy.name: "soft"
