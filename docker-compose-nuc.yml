@@ -11,3 +11,7 @@ include:
     env_file: 
       - nuc.env
       - backrest/nuc.env
+  - path: soft-serve/docker-compose.yml
+    env_file:
+      - nuc.env
+      - soft-serve/.env
