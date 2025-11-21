@@ -1,0 +1,21 @@
+services:
+  smokeping:
+    image: lscr.io/linuxserver/smokeping:latest
+    container_name: smokeping
+    hostname: smokeping #optional
+    user: "${UID_GID:-1000:1000}"
+    env_file:
+      - ../shared.env
+    environment:
+      # - MASTER_URL=http://<master-host-ip>:80/smokeping/ #optional
+      # - SHARED_SECRET=password #optional
+      - CACHE_DIR=/tmp #optional
+    volumes:
+      - "./config-${DOCKER_HOST_NAME}:/config"
+      - "${DATA_DIR}/smokeping/data:/data"
+    ports:
+      - 80:80
+    restart: unless-stopped
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "smokeping"

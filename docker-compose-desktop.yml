@@ -1,3 +1,5 @@
 include:
-  - path: backrest/docker-compose.yml
+  # - path: backrest/docker-compose.yml
+  #   env_file: desktop.env
+  - path: smokeping/docker-compose.yml
     env_file: desktop.env
