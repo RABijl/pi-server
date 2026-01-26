@@ -11,3 +11,5 @@ backrest/config-nuc/config.json filter=git-crypt diff=git-crypt
 soft-serve/config-laptop/config.yaml filter=git-crypt diff=git-crypt
 soft-serve/.env filter=git-crypt diff=git-crypt
 soft-serve/config-nuc/config.yaml filter=git-crypt diff=git-crypt
+webdav/config-desktop/config.yml filter=git-crypt diff=git-crypt
+webdav/config-nuc/config.yml filter=git-crypt diff=git-crypt

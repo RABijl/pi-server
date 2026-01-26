@@ -1,0 +1,10 @@
+services:
+  webdav:
+    image: hacdias/webdav:latest
+    container_name: webdav
+    user: "${UID_GID:-1000:1000}"
+    volumes:
+      - "${DATA_DIR}/webdav/data:/data"
+      - "./config-${DOCKER_HOST_NAME}/config.yml:/config.yml:ro"
+    ports:
+      - 6060:6060
