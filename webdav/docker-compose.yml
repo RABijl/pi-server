@@ -8,3 +8,8 @@ services:
       - "./config-${DOCKER_HOST_NAME}/config.yml:/config.yml:ro"
     ports:
       - 6060:6060
+    restart: unless-stopped
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "webdav"
+      tsdproxy.container_port: 6060
