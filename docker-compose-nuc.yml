@@ -15,3 +15,6 @@ include:
     env_file:
       - nuc.env
       - soft-serve/.env
+  - path: webdav/docker-compose.yml
+    env_file:
+      - nuc.env
